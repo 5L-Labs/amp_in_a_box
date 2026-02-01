@@ -1,0 +1,32 @@
+FROM docker.io/library/alpine:latest
+
+RUN apk add --no-cache squid iptables openssl
+
+# Create required directories
+RUN mkdir -p /var/log/squid /var/spool/squid && \
+    chown -R squid:squid /var/log/squid /var/spool/squid
+
+# Create empty blocklist (will be overwritten by mount)
+RUN touch /etc/squid/blocklist.txt
+
+# Generate self-signed cert for SSL bump
+RUN mkdir -p /etc/squid/ssl && \
+    openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 \
+    -subj "/CN=amp-proxy" \
+    -keyout /etc/squid/ssl/squid.pem \
+    -out /etc/squid/ssl/squid.pem && \
+    chown squid:squid /etc/squid/ssl/squid.pem
+
+# Initialize SSL certificate database for ssl-bump
+RUN mkdir -p /var/lib/squid && \
+    /usr/lib/squid/security_file_certgen -c -s /var/lib/squid/ssl_db -M 4MB && \
+    chown -R squid:squid /var/lib/squid
+
+COPY squid.conf /etc/squid/squid.conf
+COPY allowlist.txt /etc/squid/allowlist.txt
+COPY proxy-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 3128
+
+CMD ["/entrypoint.sh"]

@@ -1,0 +1,9 @@
+# Temporary output files
+*.txt
+list
+
+# Shell history
+.bash_history
+
+# Environment files (may contain secrets)
+envfile
