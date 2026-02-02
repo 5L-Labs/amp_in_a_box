@@ -3,6 +3,12 @@ set -ex
 
 echo "=== Proxy entrypoint starting ==="
 
+# Verify squid user exists before setting up iptables rules
+if ! id squid >/dev/null 2>&1; then
+  echo "ERROR: squid user does not exist"
+  exit 1
+fi
+
 # Redirect all outbound HTTP/HTTPS to squid (transparent mode)
 # Only affects traffic from other containers sharing this network namespace
 echo "Setting up iptables rules..."
