@@ -1,9 +1,17 @@
 # Temporary output files
 *.txt
 list
+# Temporary/debug files
+debug_strace
+
+# Logs
+*.log
 
 # Shell history
 .bash_history
 
 # Environment files (may contain secrets)
 envfile
+
+# OS
+.DS_Store

@@ -1,0 +1,8 @@
+# Example environment file for amp-in-a-box
+# Copy this file to 'envfile' and fill in your values
+# DO NOT commit envfile with real secrets to version control
+
+# Amp API key (required)
+# AMP_API_KEY=your-api-key-here
+
+# Additional environment variables can be added as needed

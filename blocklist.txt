@@ -1,0 +1,5 @@
+# Additional blocked domains (one per line)
+# Lines starting with # are comments
+# Example:
+# .malware-site.com
+# .tracking-domain.net

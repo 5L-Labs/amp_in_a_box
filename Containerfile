@@ -1,20 +1,18 @@
 FROM node:24-slim
 
 # Install dependencies required for the install script
-RUN apt update && apt install -y curl bash git
-
+RUN apt-get update && apt-get install -y curl bash git && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /root/
 
+RUN useradd -m ampy
 
-RUN useradd -m njl 
-
-USER njl
+USER ampy
 # Install amp-cli
 RUN curl -fsSL https://ampcode.com/install.sh | bash
 
-WORKDIR /home/njl/ 
+WORKDIR /home/ampy/
 
 # Default command
 CMD ["bash","-c",".amp/bin/amp"]
