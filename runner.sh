@@ -42,11 +42,11 @@ if [[ ! -d "$AMP_PROJECT" ]]; then
   exit 1
 fi
 
+#  -v "$HOME/.amp/:$AMP/.amp/:z"\
 AMP=/home/ampy/
 podman run -it --rm \
   --env-file "${SCRIPT_DIR}/envfile" \
   -v "$HOME/.config/:$AMP/.config:z"\
-  -v "$HOME/.amp/:$AMP/.amp/:z"\
   -v "$HOME/.local/:$AMP/.local/:z" \
   -v "$HOME/.cache/:$AMP/.cache:z"\
   -v "$AMP_PROJECT:/worktree/:z"\
