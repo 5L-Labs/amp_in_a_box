@@ -89,6 +89,7 @@ echo "Proxy running (amp container will share its network namespace)"
 # Container user home directory
 AMP_HOME=/home/ampy
 
+#  -v "$HOME/.amp/:$AMP_HOME/.amp/:z" \
 # Run amp container sharing proxy's network namespace (transparent proxy)
 echo "Starting amp container..."
 echo "  HOME:    $HOME -> $AMP_HOME (in container)"
@@ -97,7 +98,6 @@ podman run -it --rm \
   --network "container:$PROXY_NAME" \
   --env-file "${SCRIPT_DIR}/envfile" \
   -v "$HOME/.config/:$AMP_HOME/.config:z" \
-  -v "$HOME/.amp/:$AMP_HOME/.amp/:z" \
   -v "$HOME/.local/:$AMP_HOME/.local/:z" \
   -v "$HOME/.cache/:$AMP_HOME/.cache:z" \
   -v "$AMP_PROJECT:/worktree/:z" \
